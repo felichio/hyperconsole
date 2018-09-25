@@ -71,10 +71,7 @@
                     .reduce((acc, it) => acc + it, "");
 
                     hookTo(document.querySelector(".items"), html);
-                });
-           
-        }
-        
-        
+                });  
+        } 
     });
 })();
