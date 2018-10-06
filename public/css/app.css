@@ -28,11 +28,10 @@ body {
     color: rgb(49, 54, 42);
 }
 
-.main-container__link:hover,
+/* .main-container__link:hover,
 .main-container__link:active {
     border: 3px solid rgb(25, 66, 77);
-}
-
+} */
 
 .main-container__title {
     text-align: center;
