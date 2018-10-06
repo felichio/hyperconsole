@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const https = require("https");
+const html = require("html-minifier");
+const ejs = require("ejs");
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -30,12 +32,27 @@ app.use(express.static(path + "public"));
 // Use middlewares
 app.use(bodyParser());
 
-app.use("/", (req, res) => {
-    res.render(path + "ejs/index.ejs", {
+app.get("/", (req, res) => {
+    // res.render(path + "ejs/index.ejs", {
+    //     user: {
+    //         name: "test"
+    //     }
+    // })
+
+    ejs.renderFile(path + "ejs/index.ejs", {
         user: {
             name: "test"
         }
-    })
+    }, function (err, str) {
+        res.send(html.minify(str, {
+            removeComments: true,
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true,
+            removeAttributeQuotes: true,
+            removeEmptyAttributes: true,
+            minifyJS: true
+        }));
+    });
 });
 
 
@@ -49,3 +66,4 @@ app.use("/", (req, res) => {
 app.listen(port, () => {
     console.log(`Server started successfully on port ${port}`);
 });
+
